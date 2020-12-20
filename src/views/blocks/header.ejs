@@ -16,7 +16,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="/static/js/bootstrap.min.js"></script>
-  <title><%= bot.user.username %> - The Discord Bot</title>
+  <title><%= bot.username %> - The Discord Bot</title>
   <style>
     .pageContent {
       display:none;
@@ -177,7 +177,7 @@
         x.classList.add('bg-dark')
       }
     </script>
-    <a class="navbar-brand btn" href="/"><%= bot.user.username%></a>
+    <a class="navbar-brand btn" href="/"><%= bot.username%></a>
     <button class="navbar-toggler" style="text-color:black" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -211,7 +211,7 @@
         </a>
         <div class="dropdown-menu dropdown-menu-right">
           <a class="dropdown-item" href="/servers">My servers</a>
-          <% if (user.id == bot.config.ownerID) { %>
+          <% if (user.id == '184376969016639488') { %>
           <a class="dropdown-item" href="/admin">Admin</a>
           <% } %>
           <div class="dropdown-divider"></div>

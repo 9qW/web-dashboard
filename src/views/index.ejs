@@ -1,9 +1,8 @@
 <%- include('blocks/header', {bot:bot, user: user, auth: auth}) %>
 <meta property=og:type content=website>
-<meta property=og:url content=<%= bot.config.Dashboard.domain %>>
+<meta property=og:url content=192.168.0.8>
 <meta property=og:title content="EggLord - The Discord Bot">
 <meta property=og:description content="Manage your Discord server with leveling, moderation, Twitch, Youtube and Reddit notifications.">
-<meta property=og:image content=<%= bot.user.displayAvatarURL()%>>
 <body>
   <div class="container-fluid">
     <section class="justify-content-around" style="height: 93vh">
@@ -18,7 +17,7 @@
       <div class="row">
         <div class="col-lg-6">
           <h1>Easily Create Custom Commands</h1>
-          <p>The <%= bot.user.username%> Dashboard gives you full control to create the command of your dreams! Create commands that automatically give and remove roles and send messages in the current channel or in DM.</p>
+          <p>The <%= bot.username%> Dashboard gives you full control to create the command of your dreams! Create commands that automatically give and remove roles and send messages in the current channel or in DM.</p>
         </div>
         <div class="col-lg-6">
           <img class="img-fluid mx-auto d-block" src="https://via.placeholder.com/800x300" alt="image-1" height="auto" width="auto">
@@ -56,7 +55,7 @@
         <div class="col-lg-6">
           <h1>Highly customizable moderation to protect your server from trolls and goblins.</h1>
           <p>The internet can be a dangerous place. Protect your server from ads, links, swearing, excessive emojis, and much more thanks to our easy-to-use moderation system.</p>
-          <p>Set up automated actions to help you moderate your server depending on the number of infractions a user has committed, and fine-tune the actions with timers. No more manually muting, kicking, and unbanning people, let <%= bot.user.username%> do the job for you.</p>
+          <p>Set up automated actions to help you moderate your server depending on the number of infractions a user has committed, and fine-tune the actions with timers. No more manually muting, kicking, and unbanning people, let <%= bot.username%> do the job for you.</p>
         </div>
       </div>
     </section>
