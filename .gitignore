@@ -2,3 +2,4 @@ node_modules/*
 src/config.js
 src/selfsigned.crt
 src/selfsigned.key
+src/modules/logging/logs/*
