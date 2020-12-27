@@ -9,15 +9,14 @@ const express = require('express'),
 	logger = require('../modules/logging/logger'),
 	fs = require('fs'),
 	md = require('marked'),
+	{ getBotTotalGuilds } = require('../utils/global-functions'),
 	checkAuth = require('../auth/checkLogin');
 
 // Get IP and location (for logging)
 async function getIP(req) {
 	const IP = req.connection.remoteAddress.slice(7);
 	const country = await fetch(`http://api.db-ip.com/v2/free/${IP}`).then(info => info.json());
-	if (IP != '86.25.177.233') {
-		return country;
-	}
+	return country;
 }
 
 // Get privacy and terms and condition text
@@ -99,18 +98,12 @@ router.get('/logout', function(req, res) {
 // Show the servers that the user can manage
 router.get('/servers', async function(req, res) {
 	if (req.isAuthenticated()) {
-		const guilds = await fetch('http://discord.com/api/users/@me/guilds', {
-			method: 'GET',
-			headers: {
-				Authorization: `Bot ${req.bot.config.token}`,
-			},
-		}).then(data => data.json());
 		res.render('navbar/server', {
 			bot: req.bot,
 			auth: true,
 			user: req.user,
 			Permissions: Permissions,
-			guilds: guilds,
+			guilds: await getBotTotalGuilds(req),
 		});
 	} else {
 		res.redirect('/login');
@@ -130,14 +123,8 @@ router.get('/premium', async function(req, res) {
 
 // Add Bot to server
 router.get('/add/:guildID', checkAuth, async (req, res) => {
-	req.session.backURL = '/servers';
-	const guilds = await fetch('http://discord.com/api/users/@me/guilds', {
-		method: 'GET',
-		headers: {
-			Authorization: `Bot ${req.bot.config.token}`,
-		},
-	}).then(data => data.json());
 	// Check if bot is the list or not
+	const guilds = await getBotTotalGuilds(req);
 	guilds.forEach(guild => {
 		if (guild.id == req.params.guildID) {
 			res.send('<p>The bot is already there... <script>setTimeout(function () { window.location="/servers"; }, 1000);</script><noscript><meta http-equiv="refresh" content="1; url=/dashboard" /></noscript>');
@@ -194,16 +181,6 @@ router.get('/premium', async function(req, res) {
 
 // privacy page
 router.get('/privacy', function(req, res) {
-	md.setOptions({
-		renderer: new md.Renderer(),
-		gfm: true,
-		tables: true,
-		breaks: false,
-		pedantic: false,
-		sanitize: false,
-		smartLists: true,
-		smartypants: false,
-	});
 	res.render('extras/legal', {
 		bot: req.bot,
 		auth: req.isAuthenticated() ? true : false,

@@ -15,6 +15,8 @@ const fetch = require('node-fetch'),
 	route3 = require('./routes/admin'),
 	MemoryStore = require('memorystore'),
 	mStore = MemoryStore(session),
+	helmet = require('helmet'),
+	compression = require('compression'),
 	logger = require('./modules/logging/logger');
 // Creates the webserver
 (async function init() {
@@ -52,6 +54,21 @@ const fetch = require('node-fetch'),
 		}))
 		// Limits how many times a user can access my website (basic raid protection)
 		.use(limiter)
+		// Protects header data
+		.use(helmet({
+			contentSecurityPolicy: {
+				directives: {
+					defaultSrc: ['\'self\''],
+					'script-src': ['\'unsafe-inline\'', 'https://cookieconsent.popupsmart.com', `${config.domain}`, 'https://kit.fontawesome.com'],
+					'style-src': ['\'unsafe-inline\'', 'https://cookieconsent.popupsmart.com', `${config.domain}`],
+					'img-src': ['\'unsafe-inline\'', 'https://cdn.discordapp.com', `${config.domain}`, 'https://i.imgur.com', 'http://www.w3.org', 'data:'],
+					'connect-src': ['\'unsafe-inline\'', 'https://ka-f.fontawesome.com', `${config.domain}`],
+					'font-src': ['\'unsafe-inline\'', 'https://ka-f.fontawesome.com'],
+				},
+			},
+		}))
+		// Compress external files (js & css)
+		.use(compression())
 		// Initializes passport and session.
 		.use(passport.initialize())
 		.use(passport.session())
@@ -59,6 +76,8 @@ const fetch = require('node-fetch'),
 			req.bot = bot;
 			next();
 		})
+		// if behind a reverse proxy then enable this
+		// .set('trust policy', 1)
 		// Uses EJS template
 		.engine('html', require('ejs').renderFile)
 		.set('view engine', 'ejs')

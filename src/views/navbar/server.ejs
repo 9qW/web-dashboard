@@ -23,15 +23,13 @@
                 <div class="media-body">
                   <h4 class="mt-0 mb-1"><%= guild.name %></h4>
                   <% let href, text; %>
-                  <% guilds.forEach(botGuilds => { %>
-                    <% if (botGuilds.id == guild.id) {
-                      href = `/dashboard/${guild.id}`;
-                      text = "Manage";
-                    } else {
-                      href = `/add/${guild.id}`;
-                      text = "Invite Bot";
-                    } %>
-                  <%})%>
+                    <% if (guilds.find(g => g.id == guild.id)) {
+                        href = `/dashboard/${guild.id}`;
+                        text = "Manage";
+                      } else {
+                        href = `/add/${guild.id}`;
+                        text = "Invite Bot";
+                      } %>
                   <a class="btn btn-lg enable" role="button" href="<%= href %>"> <%= text %><% if (text == "Manage") { %> <i class="fas fa-chevron-right" style="size:1px;"></i> <% } else {%> <i class="fas fa-plus"></i><% }%></a>
                 </div>
               </li>

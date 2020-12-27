@@ -7,14 +7,13 @@
   <meta name="description" content="Manage your Discord server with leveling, moderation, Twitch, Youtube and Reddit notifications.">
   <meta name="keywords" content="Discord.js, Leveling, JavaScript, Moderation, Twitch, Youtube, Reddit, Music">
   <meta name="author" content="I am Ben#6686">
-  <meta name="color-scheme" content="dark light">
-  <meta name="theme-color" content="dark light">
+  <meta name="theme-color" content="#A9A9A9"/>
   <!--Links-->
   <link rel="stylesheet" href="/static/css/bootstrap.min.css">
   <link rel="apple-touch-icon" href="/static/img/apple-touch-icon.png" sizes="180x180">
   <!--scripts-->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="/static/js/jquery.min.js"></script>
+  <script src="/static/js/popper.min.js"></script>
   <script src="/static/js/bootstrap.min.js"></script>
   <title><%= bot.username %> - The Discord Bot</title>
   <style>
@@ -196,7 +195,7 @@
           <a class="nav-link btn" href="/premium">Premium</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link btn" href="https://discord.gg/8g6zUQu">Support server</a>
+          <a class="nav-link btn" href=<%= bot.config.SupportServer%>>Support server</a>
         </li>
       </ul>
       <ul class="navbar-nav">
@@ -211,7 +210,7 @@
         </a>
         <div class="dropdown-menu dropdown-menu-right">
           <a class="dropdown-item" href="/servers">My servers</a>
-          <% if (user.id == '184376969016639488') { %>
+          <% if (user.id == bot.config.ownerID) { %>
           <a class="dropdown-item" href="/admin">Admin</a>
           <% } %>
           <div class="dropdown-divider"></div>

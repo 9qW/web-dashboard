@@ -4,9 +4,9 @@ const express = require('express'),
 	// config = require('../config.js'),
 	fetch = require('node-fetch'),
 	{ Permissions } = require('discord.js'),
-	database = require('../modules/database').init(),
 	{ Guild } = require('../modules/database/models'),
 	checkAuth = require('../auth/checkLogin');
+require('../modules/database').init();
 
 // get guild settings
 async function getGuild(guild) {
